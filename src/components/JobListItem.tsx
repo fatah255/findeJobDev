@@ -1,7 +1,20 @@
 import BookmarkIcon from "./BookmarkIcon";
 
-export default function JobListItem({ jobItem }) {
-  console.log(jobItem);
+type TJobItem = {
+  badgeLetters: string;
+  title: string;
+  company: string;
+  daysAgo: number;
+  id: number;
+  date: string;
+  relevanceScore: number;
+};
+
+type jobItemProps = {
+  jobItem: TJobItem;
+};
+
+export default function JobListItem({ jobItem }: jobItemProps) {
   return (
     <li className="job-item">
       <a className="job-item__link">
@@ -14,7 +27,7 @@ export default function JobListItem({ jobItem }) {
 
         <div className="job-item__right">
           <BookmarkIcon />
-          <time className="job-item__time">{jobItem.daysAgo}</time>
+          <time className="job-item__time">{jobItem.daysAgo}d</time>
         </div>
       </a>
     </li>
