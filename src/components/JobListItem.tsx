@@ -1,14 +1,6 @@
 import BookmarkIcon from "./BookmarkIcon";
-
-type TJobItem = {
-  badgeLetters: string;
-  title: string;
-  company: string;
-  daysAgo: number;
-  id: number;
-  date: string;
-  relevanceScore: number;
-};
+import { TJobItem } from "../lib/types";
+import { useEffect } from "react";
 
 type jobItemProps = {
   jobItem: TJobItem;
@@ -17,7 +9,7 @@ type jobItemProps = {
 export default function JobListItem({ jobItem }: jobItemProps) {
   return (
     <li className="job-item">
-      <a className="job-item__link">
+      <a href={`#${jobItem.id}`} className="job-item__link">
         <div className="job-item__badge">{jobItem.badgeLetters}</div>
 
         <div className="job-item__middle">

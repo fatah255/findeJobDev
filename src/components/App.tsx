@@ -2,31 +2,21 @@ import Background from "./Background";
 import Container from "./Container";
 import Footer from "./Footer";
 import Header from "./Header";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./Logo";
 import BookmarkIcon from "./BookmarkIcon";
 import SearchForm from "./SearchForm";
 import Sidebar from "./Sidebar";
 import JobItemContent from "./JobItemContent";
 import JobList from "./JobList";
+import { useActiveId, useJobItem, useJobItems } from "../lib/hooks";
+import { BASE_API_URL } from "../lib/constants";
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const [jobItems, setJobItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    if (!searchText) return;
-    const fetchData = async () => {
-      setIsLoading(true);
-      const response = await fetch(
-        `https://bytegrad.com/course-assets/projects/rmtdev/api/data?search=${searchText}`
-      );
-      const data = await response.json();
-      setIsLoading(false);
-      setJobItems(data.jobItems);
-    };
-    fetchData();
-  }, [searchText]);
+  const { jobItemsSlice, isLoading } = useJobItems(searchText);
+  const activeId = useActiveId();
+  const jobItem = useJobItem(activeId);
   return (
     <>
       <Background />
@@ -40,7 +30,7 @@ function App() {
 
       <Container>
         <Sidebar>
-          <JobList jobItems={jobItems} />
+          <JobList jobItems={jobItemsSlice} isLoading={isLoading} />
         </Sidebar>
         <JobItemContent />
       </Container>
