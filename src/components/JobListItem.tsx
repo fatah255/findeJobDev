@@ -4,11 +4,12 @@ import { useEffect } from "react";
 
 type jobItemProps = {
   jobItem: TJobItem;
+  isActive: boolean;
 };
 
-export default function JobListItem({ jobItem }: jobItemProps) {
+export default function JobListItem({ jobItem, isActive }: jobItemProps) {
   return (
-    <li className="job-item">
+    <li className={`job-item ${isActive ? "job-item--active" : ""}`}>
       <a href={`#${jobItem.id}`} className="job-item__link">
         <div className="job-item__badge">{jobItem.badgeLetters}</div>
 
