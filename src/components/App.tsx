@@ -13,7 +13,7 @@ import { useActiveId, useJobItem, useJobItems } from "../lib/hooks";
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const { jobItemsSlice, isLoading } = useJobItems(searchText);
+  const { jobItemsSlice, isLoading, numResults } = useJobItems(searchText);
   const activeId = useActiveId();
   const { jobItem, isLoading: isLoading2 } = useJobItem(activeId);
   useEffect(() => {
@@ -32,7 +32,7 @@ function App() {
       </Header>
 
       <Container>
-        <Sidebar>
+        <Sidebar numResults={numResults}>
           <JobList jobItems={jobItemsSlice} isLoading={isLoading} />
         </Sidebar>
         <JobItemContent isLoading={isLoading2} jobItem={jobItem} />

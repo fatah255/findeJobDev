@@ -5,6 +5,7 @@ import { BASE_API_URL } from "./constants";
 export function useJobItems(searchText: string) {
   const [jobItems, setJobItems] = useState<TJobItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const numResults = jobItems.length;
   useEffect(() => {
     if (!searchText) return;
     const fetchData = async () => {
@@ -18,7 +19,7 @@ export function useJobItems(searchText: string) {
   }, [searchText]);
   const jobItemsSlice = jobItems.slice(0, 7);
 
-  return { jobItemsSlice, isLoading };
+  return { jobItemsSlice, isLoading, numResults };
 }
 
 export const useActiveId = () => {
